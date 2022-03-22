@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content-->
+<div class="container-fluid p-0">
+    <!-- About-->
+    <section class="resume-section" id="about">
+        <div class="resume-section-content">
+            <h1 class="mb-0">
+                {{about.first_name}} <span class="text-primary">{{about.last_name}}</span>
+            </h1>
+            <div class="subheading mb-5">
+                {{about.address}} · {{about.phone_number}} ·
+                <a href="mailto:{{about.email}}">{{about.email}}</a>
+            </div>
+            <p class="lead mb-5">{{about.describe_yourself}}</p>
+            <div class="social-icons">
+                <a class="social-icon" href="{{about.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+                <a class="social-icon" href="{{about.github}}"><i class="fab fa-github"></i></a>
+                <a class="social-icon" href="{{about.twitter}}"><i class="fab fa-twitter"></i></a>
+                <a class="social-icon" href="{{about.facebook}}"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0" />
+    <!-- Experience-->
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Experience 💻</h2>
+            {% for exp in experience %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{exp.role}}</h3>
+                    <div class="subheading mb-3">{{exp.company_name}}</div>
+                    <p>{{exp.description}}</p>
+                </div>
+                <div class="flex-shrink-0"><span class="text-primary">{{exp.from_month}} - {{exp.to_month}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <hr class="m-0" />
+    <!-- Education-->
+    <section class="resume-section" id="education">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Education 📗</h2>
+            {% for edu in education %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{edu.college_name}}</h3>
+                    <div class="subheading mb-3">{{edu.degree}}</div>
+                    <div>{{edu.branch}}</div>
+                    <p>GPA: {{edu.GPA}}</p>
+                </div>
+                <div class="flex-shrink-0"><span class="text-primary">{{edu.from_month}} - {{edu.to_month}}</span></div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <hr class="m-0" />
+    <!-- Skills-->
+    <section class="resume-section" id="skills">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Skills 🧠</h2>
+            <div class="subheading mb-3">Programming Languages & Tools</div>
+            <ul class="list-inline dev-icons">
+                {% for skill in skills %}
+                <li class="list-inline-item"><i class="{{skill.skill_name}}"></i></li>
+                {% endfor %}
+            </ul>
+            <div class="subheading mb-3">Workflow</div>
+            <ul class="fa-ul mb-0">
+                {% for work in workflow %}
+                <li>
+                    <span class="fa-li"><i class="fas fa-check"></i></span>
+                    {{work.workflow_name}}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    <hr class="m-0" />
+    <!-- Interests-->
+    <section class="resume-section" id="interests">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Interests 😎</h2>
+            <p>{{interests.interests_description}}</p>
+        </div>
+    </section>
+    <hr class="m-0" />
+    <!-- Awards-->
+    <section class="resume-section" id="awards">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Awards & Certifications 🥇</h2>
+            <ul class="fa-ul mb-0">
+                {% for awa in awards %}
+                <li>
+                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                    {{awa.award_name}} - {{awa.awarded_by}}
+                </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </section>
+    <hr class="m-0" />
+    <!-- Hire Me !!!-->
+    <section class="resume-section" id="hire">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Hire Me 👨‍💻</h2>
+            {% include 'messages.html' %}
+            <form method="POST" action="{% url 'hireme' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Name</label>
+                    <input name="name" type="text" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Your Name">
+                </div>
+                <div class="form-group pt-4">
+                    <label for="exampleFormControlInput1">Email</label>
+                    <input name="email" type="email" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Your Email">
+                </div>
+                <div class="form-group pt-4">
+                    <label for="exampleFormControlTextarea1">Message</label>
+                    <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3" placeholder="Enter Your Message"
+                    style="color: #fff;">Send Response <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
